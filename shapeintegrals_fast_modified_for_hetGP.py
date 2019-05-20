@@ -129,11 +129,9 @@ class ShapeIntegral(Kern):
         
         #caching is vital to the algorithm's computed covariance matrix
         #we don't want to cause non-positive-definite matrices
-        tuplehash = tuple(shape.tolist()) #TODO Add Nperunit to hash
+        tuplehash = hash(shape.data.tobytes()) #TODO Add Nperunit to hash
         if tuplehash in self.cached_points:
             return self.cached_points[tuplehash]
-            
-            
         allps = []
         #each simplex in shape must have D*(D+1) coordinates, e.g. a triangle has 2*(2+1) = 6 coords (2 for each vertex)
         #e.g. a tetrahedron has 4 points, each with 3 coords = 12: 3*(3+1) = 12.
