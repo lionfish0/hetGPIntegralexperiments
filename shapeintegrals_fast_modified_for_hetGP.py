@@ -42,8 +42,8 @@ class ShapeIntegral(Kern):
         The last column of X should specify if it's the latent function or the integral that the Y refers to.
         if it's the latent function then we just use the first d-columns, and the rest can be NaN, e.g.
         X                               Y
-        0,0,1,0,0,1,0,0,1,1,0,1,1,0     2
-        1,1,nanananananananananan,1     3
+        0,0,1,0,0,1,0,1,1,0,1,1,0     2
+        1,1,nananananananananan,1     3
         is a 1x1 square with an integral of 2, and a single point in the [1,1] corner of the square with a value of 3.
         
         """
@@ -166,6 +166,9 @@ class ShapeIntegral(Kern):
             points = np.array([self.simplexRandom(vectors) for i in range(npoints)])
             allps.extend(points)
             
+        #hack to ensure this polygon has a point
+        if len(allps)==0:
+            allps.append(self.simplexRandom(vectors))
         self.cached_points[tuplehash] = (np.array(allps),totalvol)
         return np.array(allps),totalvol
         
