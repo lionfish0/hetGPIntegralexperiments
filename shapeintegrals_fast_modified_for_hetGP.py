@@ -169,6 +169,8 @@ class ShapeIntegral(Kern):
         #hack to ensure this polygon has a point
         if len(allps)==0:
             allps.append(self.simplexRandom(vectors))
+        assert len(allps)>0, "No points were placed for this shape"
+            
         self.cached_points[tuplehash] = (np.array(allps),totalvol)
         return np.array(allps),totalvol
         
