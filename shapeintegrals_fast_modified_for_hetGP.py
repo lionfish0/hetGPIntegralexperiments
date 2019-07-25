@@ -3,7 +3,6 @@ from GPy.kern import Kern
 from GPy.core.parameterization import Param
 from paramz.transformations import Logexp
 import math
-from scipy.misc import factorial
 import numpy as np
 import math
 import random
@@ -103,7 +102,7 @@ class ShapeIntegral(Kern):
         row vectors in vectors, e.g. passing [[0,0],[0,2],[2,0]]
         will return 2 (as this triangle has area of 2)"""
         assert vectors.shape[0]==self.input_space_dim+1, "For a %d dimensional space there should be %d+1 vectors describing the simplex" % (self.input_space_dim, self.input_space_dim)
-        return np.abs(np.linalg.det(vectors[1:,:]-vectors[0,:]))/factorial(self.input_space_dim)
+        return np.abs(np.linalg.det(vectors[1:,:]-vectors[0,:]))/math.factorial(self.input_space_dim)
         
     def delete_cache(self):
         self.cached_points = {}
